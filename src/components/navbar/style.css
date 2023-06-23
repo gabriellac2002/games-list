@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+
+.nav{
+    background-color: white;
+
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: space-between;
+
+    
+}
+
+.container_image{
+    width: 80%;
+    padding-left: 2%;
+}
+
+.image{
+    margin-left: 2%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.container_links{
+    width: 20%;
+    margin-right: 2%;
+}
+
+.lista_links{
+    color: #5E9BF9;
+
+    width: auto;
+    list-style: none;
+    padding-inline-start: 0;;
+}
+
+.link{
+    list-style-type: none;
+    cursor: pointer;
+
+    font-family: 'Quicksand', sans-serif;
+    text-transform: uppercase;
+    margin-right: 2%;
+    
+}
+
+a{
+    width: 100%;
+}
+
+.link a:hover{
+    font-weight: bold;
+    
+}
+
+@media only screen and (max-width: 850px) {
+    
+    .container_image{
+        width: 70%;
+    }
+
+    .container_links{
+        width: 30%;
+    }
+
+}
+
+@media only screen and (max-width: 700px) {
+
+    .links{
+        width: 50%;
+    }
+
+    .container_image{
+        margin-top: 2%;
+        margin-bottom: 2%;
+    }
+
+}
+
+@media only screen and (max-width: 570px) {
+    img{
+        width: 3rem;
+    }
+
+    .container_image{
+        width: 50%;
+    }
+
+    .container_links{
+        width: 50%;
+    }
+
+}

@@ -1,0 +1,34 @@
+.page{
+    margin-bottom: 0;
+    background: rgb(23,35,50);
+    background: linear-gradient(360deg, rgba(23,35,50,1) 0%, rgba(9,20,30,1) 100%);
+}
+
+.capa{
+    display: flex;
+    flex-direction: row;
+}
+
+.frase{
+    color: white;
+    width: 20%;
+}
+
+.imagem{
+    width: 80%;
+    opacity: 1;
+    height: 90vh;
+}
+
+.valorant{
+    width: 100%;
+    height: 90vh;
+}
+
+.list_jogos{
+
+    margin-top: 0;
+
+    background: rgb(23,35,50);
+    background: linear-gradient(360deg, rgba(23,35,50,1) 0%, rgba(9,20,30,1) 100%);
+}
