@@ -19,6 +19,10 @@
     justify-content: center;
 }
 
+.logo{
+    width: 30%;
+}
+
 .text_app{
     width: 50%;
     align-items: center;
@@ -48,6 +52,34 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
+}
+
+.pesquisas{
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 2%;
+    margin-top: 2%;
+}
+
+.select{
+    width: 20% ;
+}
+
+.searchbar{
+    width: 70%;
+    margin-left: 2%;
+}
+
+.input_search{
+    width: 90%;
+    height: 2rem;
+    border-radius: 10px;
+    padding: 1.5px;
+    border: none;
 }
 
 @media only screen and (max-width: 850px){
