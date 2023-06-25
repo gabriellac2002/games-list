@@ -12,6 +12,7 @@ import Card from '../../components/Card/card.jsx';
 import Select from 'react-select'
 import Navbar from "../navbar/navbar";
 import ReactLoading from 'react-loading';
+import Footer from "../Footer/footer";
 
 const List = ({games}) =>  {
 
@@ -46,8 +47,9 @@ const List = ({games}) =>  {
   }));
 
     return (
-        <div className='body_page'>
+      <div className='body_page'>
         <Navbar></Navbar>
+
         <div className='page'>
 
         <div className='gamer'>
@@ -103,12 +105,15 @@ const List = ({games}) =>  {
           
           <div className='pagination'>
             {Array.from(Array(pages), (item,index) =>{
-            return <button value={index} onClick={(e) => setCurrentPage(Number(e.target.value))}>{index + 1}</button>
+            return <button className="button_pagination" value={index} onClick={(e) => setCurrentPage(Number(e.target.value))}>{index + 1}</button>
             })}
           </div>
 
         </div>
-      </div> 
+        </div> 
+
+
+        <Footer></Footer>
       </div>
     );
   }

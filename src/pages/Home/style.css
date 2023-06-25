@@ -37,6 +37,7 @@
 
     display: flex;
     flex-direction: column;
+    margin-top: 0;
 }
 
 .titulo_list_games{
@@ -93,11 +94,26 @@
     width: 3%;
 }
 
-
-
 .input_search:focus{
     box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
 }
+
+.pagination{
+    display: flex;
+    flex-wrap: wrap;
+
+    justify-content: center;
+    padding: 2%;
+}
+
+.button_pagination{
+    background-color: #0E224E;
+    border: none;
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1rem;
+}
+
 
 @media only screen and (max-width: 850px){
     .image_app{
@@ -153,6 +169,8 @@
     }
 
 }
+
+
 
 @media only screen and (max-width: 500px){
     .container_cards{

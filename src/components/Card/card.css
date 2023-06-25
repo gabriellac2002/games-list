@@ -11,7 +11,7 @@
    
     font-family: 'Quicksand', sans-serif;
 
-    margin-bottom: 1%;
+    margin-bottom: 3%;
     margin-left: 2%;
     border-radius: 15px;
 
@@ -32,8 +32,12 @@
     margin: 5%;
 }
 
-@media only screen and (max-width: 665px){
+@media only screen and (max-width: 700px){
     .titulo_card{
-        font-size: 2rem;
+        font-size: 1rem;
     }
+
+        .desc{
+            font-size: 1rem;
+        }
 }
