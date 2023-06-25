@@ -77,20 +77,20 @@ const Home = () => {
 
   if (erroTempo) {
     return (
-      <Erro erro={'O servidor demorou para responder, tente mais tarde'} />
+      <Erro erro={'O servidor demorou para responder, tente mais tarde!'} />
     );
   }
 
   if (erroServidor) {
     return (
-      <Erro erro={'O servidor falhou em responder, tente recarregar a página'} />
+      <Erro erro={'O servidor falhou em responder, tente recarregar a página!'} />
     );
   }
 
   if (erro) {
     return (
       <Erro
-        erro={'O servidor não conseguirá responder por agora, tente voltar novamente mais tarde'}
+        erro={'O servidor não conseguirá responder por agora, tente voltar novamente mais tarde!'}
       />
     );
   }

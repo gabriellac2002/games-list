@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+
+.body_erro{
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.modal{
+    background-color: #2D6BEA;
+    border-radius: 15px;
+    box-shadow:  15px 10px 5px #3785FA;
+
+    width: 50%;
+    padding: 2%;
+
+    margin-top: 20%;
+
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.sad_face{
+    width: 40%;
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.sad{
+    width: 40%;
+}
+
+.text_erro{
+    width: 60%;
+}
+
+@media only screen and (max-width: 800px) {
+    
+    .modal{
+        font-size: 0.8rem;
+        padding: 6%;
+    }
+
+    .text_erro{
+        width: 50%;
+    }
+
+    .sad{
+        width: 50%;
+    }
+
+}
+
+@media only screen and (max-width: 600px) {
+    
+    .modal{
+        font-size: 1rem;
+        padding: 6%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sad_face{
+        width: auto;
+    }
+
+    .text_erro{
+        width: auto;
+    }
+
+}
+
+@media only screen and (max-width: 400px) {
+    
+    .modal{
+        font-size: 0.5rem;
+        padding: 5%;
+    }
+
+}
