@@ -7,6 +7,7 @@ import './style.css';
 import List from '../../components/List/List.jsx';
 import Erro from '../../components/Erro/erro.jsx';
 import ReactLoading from 'react-loading';
+import LoaderSlice from '../../components/LoaderSlice/loaderSlice.jsx';
 
 const Home = () => {
   const [games, setGames] = useState([]);
@@ -71,7 +72,7 @@ const Home = () => {
 
   if (loading) {
     return (
-      <ReactLoading type={'spin'} color='#2D6BEA' height={'20%'} width={'20%'} />
+      <LoaderSlice/>
     );
   }
 
