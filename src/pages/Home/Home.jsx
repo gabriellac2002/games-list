@@ -1,123 +1,101 @@
-import { useState , useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 //css
 import './style.css';
 
-//assets
-import logo from '../../assets/logo.png';
-
 //components
-import Card from '../../components/Card/card.jsx';
-import Navbar from '../../components/navbar/navbar.jsx';
-import Select from 'react-select'
+import List from '../../components/List/List.jsx';
+import Erro from '../../components/Erro/erro.jsx';
 import ReactLoading from 'react-loading';
 
-const Home = () =>  {
+const Home = () => {
+  const [games, setGames] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [erroServidor, setErroServidor] = useState(false);
+  const [erro, setErro] = useState(false);
+  const [erroTempo, setErroTempo] = useState(false);
 
-  const [games,setGames] = useState([]);
-  const [itensPerPage, setItensPerPage] = useState(9);
-  const [currentPage,setCurrentPage] = useState(0);
-  const [selectedGenre, setSelectedGenre] = useState(null); 
-  const [searchQuery, setSearchQuery] = useState('');
+  const fetchWithTimeOut = (url, options, duration) => {
+    const controller = new AbortController();
+    const { signal } = controller;
 
-  const pages = Math.ceil(games.length / itensPerPage) ;
-  const startIndex = currentPage * itensPerPage;
-  const endIndex = startIndex + itensPerPage;
-  const currentItens = games.slice(startIndex,endIndex);
-  
-  useEffect(()=>{
-    fetch('https://games-test-api-81e9fb0d564a.herokuapp.com/api/data', { 
-      headers: new Headers({
-        'dev-email-address': 'gabriellacsilva2002@gmail.com'
+    const fetchPromise = fetch(url, { ...options, signal });
+    const timeoutPromise = new Promise((resolve, reject) => {
+      const timer = setTimeout(() => {
+        controller.abort();
+        reject(new Error('Tempo limite excedido'));
+      }, duration);
+    });
+
+    return Promise.race([fetchPromise, timeoutPromise])
+      .then((res) => {
+        if (res.status >= 200 && res.status < 300) {
+          return res.json();
+        } else {
+          throw new Error('Erro na requisição');
+        }
       })
-    }).then((res) => res.json().then(data => setGames(data)))
-  },[]);
+      .catch((error) => {
+        if (error.name === 'AbortError') {
+          throw new Error('Tempo limite excedido');
+        } else {
+          throw error;
+        }
+      });
+  };
 
-  const filteredGamesForName = games.filter((game) =>
-    game.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  useEffect(() => {
+    setLoading(true);
+    fetchWithTimeOut(
+      'https://games-test-api-81e9fb0d564a.herokuapp.com/api/data',
+      {
+        headers: {
+          'dev-email-address': 'gabriellacsilva2002@gmail.com',
+        },
+      },
+      5000
+    )
+      .then((data) => {
+        setGames(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        if (error.message === 'Tempo limite excedido') {
+          setErroTempo(true);
+        } else {
+          setErro(true);
+        }
+        setLoading(false);
+      });
+  }, []);
 
-  const filteredGames = selectedGenre
-    ? games.filter((game) => game.genre.includes(selectedGenre))
-  : games;
-  
-  const displayedGames = selectedGenre
-    ? filteredGames.slice(startIndex, endIndex)
-    : filteredGamesForName.slice(startIndex, endIndex);
-
-
-  const uniqueGenres = Array.from(new Set(games.map((game) => game.genre)));
-  const options = uniqueGenres.map((genre) => ({
-    value: genre,
-    label: genre
-  }));
-
-  return (
-    <div className='body_page'>
-      <Navbar></Navbar>
-      <div className='page'>
-
-        <div className='gamer'>
-
-          <div className='image_app'>
-            <img src={logo} className='logo'></img>
-          </div>
-
-          <div className='text_app'>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </p>
-          </div>
-
-        </div>
-
-        <div className='list_games'>
-          <div className='titulo_list_games'>
-            <h2>Listagem de jogos</h2>
-          </div>
-
-          <div className='pesquisas'>
-
-            <div className='select'>
-              <Select 
-                options={options} 
-                value={selectedGenre}
-                onChange={(selectedOption) =>
-                  setSelectedGenre(selectedOption ? selectedOption.value : null)
-                }
-              />
-            </div>
-
-            <div className='searchbar'>
-              <input
-                className='input_search'
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Digite o nome do jogo"
-              />
-            </div>
-
-          </div>
-
-          <div className='container_cards'>
-          {Array.isArray(displayedGames) ? displayedGames.map((game) => (
-            <Card title={game.title} thumbnail={game.thumbnail} short_description={game.short_description} />
-          )) : <ReactLoading type={'spin'} color='#2D6BEA' height={'20%'} width={'20%'} />}
-
-          </div>
-          
-          <div className='pagination'>
-            {Array.from(Array(pages), (item,index) =>{
-            return <button value={index} onClick={(e) => setCurrentPage(Number(e.target.value))}>{index + 1}</button>
-            })}
-          </div>
-
-        </div>
-      </div>
-      
-    </div>
-  );
+  if (loading) {
+    return (
+      <ReactLoading type={'spin'} color='#2D6BEA' height={'20%'} width={'20%'} />
+    );
   }
-  
+
+  if (erroTempo) {
+    return (
+      <Erro erro={'O servidor demorou para responder, tente mais tarde'} />
+    );
+  }
+
+  if (erroServidor) {
+    return (
+      <Erro erro={'O servidor falhou em responder, tente recarregar a página'} />
+    );
+  }
+
+  if (erro) {
+    return (
+      <Erro
+        erro={'O servidor não conseguirá responder por agora, tente voltar novamente mais tarde'}
+      />
+    );
+  }
+
+  return <List games={games} />;
+};
+
 export default Home;
