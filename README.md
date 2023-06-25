@@ -13,6 +13,6 @@ Site criado como primeira etapa do processo seletivo da empres a App Masters, us
 
 ## Contatos:
 
-Nome: Gabriella Cruz e Silva
-Email: gabriellacsilva2002@gmail.com
-Telefone: (32)98457-9233
+<p>Nome: Gabriella Cruz e Silva</p>
+<p>Email: gabriellacsilva2002@gmail.com</p>
+<p>Telefone: (32)98457-9233</p>
