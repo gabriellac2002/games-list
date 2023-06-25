@@ -60,7 +60,7 @@ const List = ({games}) =>  {
 
           <div className='text_app'>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Explore o mundo dos jogos como nunca antes! Em nosso site de listas de jogos, você encontrará uma ampla variedade de títulos emocionantes, prontos para serem descobertos. De aventuras épicas a desafios estratégicos, de jogos de tiro cheios de ação a experiências imersivas de RPG, nossa seleção abrange todos os gostos e preferências. Com análises detalhadas e informações completas sobre cada jogo, você poderá escolher com confiança o próximo título que irá proporcionar horas de entretenimento e diversão. Não espere mais, visite nosso site e comece sua jornada pelos melhores jogos hoje mesmo!
             </p>
           </div>
 
