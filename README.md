@@ -16,3 +16,7 @@ Site criado como primeira etapa do processo seletivo da empres a App Masters, us
 <p>Nome: Gabriella Cruz e Silva</p>
 <p>Email: gabriellacsilva2002@gmail.com</p>
 <p>Telefone: (32)98457-9233</p>
+
+## Link do site hospedado:
+
+https://games-list-five.vercel.app/
