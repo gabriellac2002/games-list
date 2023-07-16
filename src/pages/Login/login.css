@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+
+.rest_page{
+    margin-top: 5%;
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 5%;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.container_login{
+    display: flex;
+    flex-direction: row;
+
+    width: 70%;
+    height: 25rem;
+    box-shadow: 10px 10px 17px -4px rgba(55,133,250,0.89);
+}
+
+.container_image_login{
+    width: 50%;
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.container_inputs{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    color: #2B65E6;;
+}
+
+.input_login{
+    width: 80%;
+    height: 1.75rem;
+    border: none;
+    box-shadow: 10px 10px 17px -4px rgba(55,133,250,0.89);
+    margin-bottom: 5%;
+    outline: none;
+    color: #2B65E6;
+}
+
+.button_submit{
+    width: 30%;
+    height: 2rem;
+    background-color: #2B65E6;
+    border: none;
+    border-radius: 20px;
+
+    color: white;
+
+    margin-top: 5%;
+}
+
+.cadastro{
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+    margin-top: 5%;
+}
+
+.logo_login{
+    width: 50%;
+}
+
+@media only screen and (max-width: 700px) {
+    .container_login{
+        display: flex;
+        flex-direction: column;
+
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .button_submit{
+        width: 100%;
+    }
+
+    .input_login{
+        width: 100%;
+    }
+
+    .container_image_login{
+        margin-bottom: 5%;
+    }
+}
