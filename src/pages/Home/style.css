@@ -172,7 +172,7 @@
 
 
 
-@media only screen and (max-width: 500px){
+@media only screen and (max-width: 610px){
     .container_cards{
       display: flex;
       flex-direction: column;

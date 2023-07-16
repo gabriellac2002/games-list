@@ -58,14 +58,14 @@ const Card = (props) =>  {
             value={index + 1}
             onClick={() => handleStarClick(index)}
           >
-            <img src={star.icon} width={30}/>
+            <img src={star.icon} width={30} className="icon_estrela"/>
           </button>
         ))}
         </div>
         
         <div className="favorite">
           <button className="coracao" onClick={handleCoracaoClick}>
-              <img src={isCoracaoFull ? coracao_cheio : coracao_vazio} width={30} />
+              <img src={isCoracaoFull ? coracao_cheio : coracao_vazio} width={30} className="icon_coracao"/>
           </button>
         </div>
       </div>
