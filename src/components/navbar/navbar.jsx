@@ -17,8 +17,8 @@ const Navbar = () =>  {
       </div>
 
       <ul className={`lista_links ${active ? 'active' : ''}`}>
-        <li className="link espaco"><a href="#listagem">Listagem de jogos</a></li>
-        <Link to='/' className="favorites_games espaco botao_sem_estilo">
+        <li className="link espaco"><Link to='/'>Listagem de jogos</Link></li>
+        <Link to='/favoritos' className="favorites_games espaco botao_sem_estilo">
           <img src={favorites} width={40} alt="Favorites" />
         </Link>
         <Link to='/login' className="perfil espaco botao_sem_estilo">

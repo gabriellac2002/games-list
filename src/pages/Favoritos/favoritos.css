@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+
+.container_favoritos{
+    background-color: #0E224E;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.title_favoritos{
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+}
+
+.coracao_titulo{
+    margin-left: 1%;
+}
