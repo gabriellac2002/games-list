@@ -22,7 +22,7 @@ const Login = () => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
               const uid = user.uid;
-              navigate('/');
+             // navigate('/');
             } else {
               // User is signed out
               // ...
@@ -38,8 +38,21 @@ const Login = () => {
             console.log('deu certo');
         })
         .catch((error) => {
-            const errorCode = error.code;
             const errorMessage = error.message;
+            console.log(errorMessage);
+
+            if( errorMessage === 'Firebase: Error (auth/invalid-email).'){
+                alert('Email invalido');
+            } else 
+            if( errorMessage === 'Firebase: Error (auth/missing-password).'){
+                alert('Senha invalida');
+            } else 
+            if( errorMessage === 'Firebase: Error (auth/wrong-password).'){
+                alert('Senha incorreta');
+            } else 
+            if( errorMessage === 'Firebase: Error (auth/user-not-found).'){
+                alert('Usuario não cadastrado');
+            }
         });
 
     }

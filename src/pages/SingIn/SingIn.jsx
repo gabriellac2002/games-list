@@ -1,7 +1,11 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 import { auth } from '../../config/firebase';
 import { createUserWithEmailAndPassword } from "firebase/auth";
+
+import { Alert } from "@mui/material";
 
 import Navbar from "../../components/navbar/navbar";
 import Footer from "../../components/Footer/footer";
@@ -12,6 +16,8 @@ import logo from '../../assets/logo.png';
 
 const SingIn = () => {
 
+    const navigate = useNavigate();
+
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
@@ -19,10 +25,39 @@ const SingIn = () => {
         try{
             await createUserWithEmailAndPassword(auth, email, senha);
         } catch (err){
-            
+            const errorMessage = err.message;
+            console.log(errorMessage);
+
+            if( errorMessage === 'Firebase: Password should be at least 6 characters (auth/weak-password).'){
+               // <Alert variant="filled" severity="error">
+                //    A senha deve possuir no minimo 6 digitos
+               // </Alert>
+               alert('Senha no minimo com 6 digitos')
+            } else
+            if( errorMessage === 'Firebase: Error (auth/missing-password).'){
+                alert('Preencha com a senha');
+            } else 
+            if( errorMessage === 'Firebase: Error (auth/invalid-email).'){
+                alert('Email invalido');
+            } else
+            if( errorMessage === 'Firebase: Error (auth/missing-email).'){
+                alert('Preencha com o email');
+            }
         }
         
     };
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+              const uid = user.uid;
+             // navigate('/');
+            } else {
+              // User is signed out
+              // ...
+            }
+        });
+    }, []);
 
     return(
         <div className="body_cadastro">
