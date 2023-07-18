@@ -1,5 +1,9 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { auth,db } from "../../config/firebase";
+import { doc,getDoc } from "firebase/firestore"; 
+import { onAuthStateChanged } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 import '../../pages/Home/style.css';
 
@@ -15,6 +19,30 @@ import ReactLoading from 'react-loading';
 import Footer from "../Footer/footer";
 
 const List = ({games}) =>  {
+
+  const navigate = useNavigate();
+
+  async function getUserData() {
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+        setUserData(docSnap.data());
+        setUserUid(user.uid);
+        setIsloaded(true);
+      } else {
+        navigate('/login');
+      }
+   });
+  }
+
+  useEffect(() => {
+    getUserData()
+  }, [])
+
+  const [userData, setUserData] = useState();
+  const [isloaded, setIsloaded ] = useState(false);
+  const [userUid, setUserUid] = useState();
 
   const [itensPerPage, setItensPerPage] = useState(9);
   const [currentPage,setCurrentPage] = useState(0);
@@ -46,6 +74,12 @@ const List = ({games}) =>  {
     label: genre
   }));
 
+  const allIsLoaded = () => {
+    return Array.isArray(displayedGames) && isloaded
+  }
+
+  
+
   return (
     <div className='body_page'>
       <Navbar></Navbar>
@@ -68,7 +102,7 @@ const List = ({games}) =>  {
 
         <div className='list_games'>
           <div className='titulo_list_games'>
-            <h2>Favoritos</h2>
+            <h2>Lista de jogos</h2>
           </div>
 
           <div className='pesquisas'>
@@ -97,8 +131,8 @@ const List = ({games}) =>  {
           </div>
 
           <div className='container_cards'>
-          {Array.isArray(displayedGames) ? displayedGames.map((game) => (
-            <Card title={game.title} thumbnail={game.thumbnail} short_description={game.short_description} />
+          {allIsLoaded() ? displayedGames.map((game) => (
+            <Card id={game.id} title={game.title} thumbnail={game.thumbnail} short_description={game.short_description} fav_games={userData.fav_games} userUid={userUid}/>
           )) : <ReactLoading type={'spin'} color='#2D6BEA' height={'20%'} width={'20%'} />}
 
           </div>

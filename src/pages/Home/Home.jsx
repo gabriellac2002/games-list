@@ -58,6 +58,7 @@ const Home = () => {
     )
       .then((data) => {
         setGames(data);
+        console.log(data);
         setLoading(false);
       })
       .catch((error) => {

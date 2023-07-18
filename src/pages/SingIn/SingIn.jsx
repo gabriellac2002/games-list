@@ -2,7 +2,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { auth } from '../../config/firebase';
+import { auth ,db } from '../../config/firebase';
+import { setDoc, doc } from "firebase/firestore"; 
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 import { Alert } from "@mui/material";
@@ -24,6 +25,10 @@ const SingIn = () => {
     const singIn = async () => {
         try{
             await createUserWithEmailAndPassword(auth, email, senha);
+            await setDoc(doc(db, "users", auth.currentUser.uid), {
+                email: auth.currentUser.email,
+                fav_games: []
+            });
         } catch (err){
             const errorMessage = err.message;
             console.log(errorMessage);

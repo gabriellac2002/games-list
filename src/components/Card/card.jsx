@@ -1,5 +1,7 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { auth, db } from '../../config/firebase';
+import { updateDoc,doc, onSnapshot } from "firebase/firestore";
 
 import './card.css';
 
@@ -9,6 +11,32 @@ import coracao_cheio from '../../assets/coracao_cheio.svg';
 import coracao_vazio from '../../assets/coracao_vazio.svg';
 
 const Card = (props) =>  {
+
+  useEffect(() => {
+    if(props.fav_games.includes(props.id)) {
+      setCoracaoFull(true)
+    }
+    const unsub = onSnapshot(doc(db, "users", props.userUid), (doc) => {
+      setFav_games(doc.data().fav_games);
+    });
+  }, []);
+
+  async function removeHeart() {
+    let fv = fav_games
+    for (let i = fv.length - 1; i >= 0; i--) {
+      if (fv[i] === props.id) {
+        fv.splice(i, 1);
+      }
+    }
+
+    const userRef = doc(db, "users", props.userUid);
+
+    await updateDoc(userRef, {
+        fav_games: fv
+    });
+  }
+
+  const [fav_games, setFav_games] = useState(props.fav_games);
 
   const [stars, setStars] = useState([
     { icon: star_vazia, isFull: false },
@@ -35,9 +63,25 @@ const Card = (props) =>  {
     setStars(newStars);
   }
 
+  const addHeart = async () => {
+    let fv = fav_games
+    fv.push(props.id)
+    const userRef = doc(db, "users", props.userUid);
+    await updateDoc(userRef, {
+      fav_games: fv
+    });
+  }
+
   function handleCoracaoClick(){
     setCoracaoFull(!isCoracaoFull);
+    if(!props.fav_games.includes(props.id)) {
+      addHeart();
+    } 
+    else {
+      removeHeart();
+    }
   }
+
 
 
   return (
