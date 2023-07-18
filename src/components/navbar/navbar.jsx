@@ -1,14 +1,50 @@
-import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from 'react-router-dom';
+import { auth }  from '../../config/firebase';
+import { onAuthStateChanged, signOut } from "firebase/auth";
+
 import './navbar.css';
 
 //asstes
 import logo from '../../assets/logo.png';
 import favorites from '../../assets/lista.svg';
 import perfil from '../../assets/perfil.svg';
+import logout from '../../assets/logout.svg';
 
 const Navbar = () =>  {
   const [active, setActive] = useState(false);
+  const [ logado, setLogado ] = useState(false);
+
+  const navigate = useNavigate();
+
+  const logoutClick = async () => {
+    if(logado) {
+      signOut(auth).then(() => {
+      setLogado(false);
+      navigate('/')
+    }).catch((error) => {
+        
+    });
+    }
+    else {
+
+      navigate('/login')
+
+    }
+  }
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+        setLogado(true);
+        // navigate('/');
+      } else {
+      // User is signed out
+      // ...
+      }
+    });
+  }, []);
 
   return (
     <div className="nav">
@@ -21,9 +57,9 @@ const Navbar = () =>  {
         <Link to='/favoritos' className="favorites_games espaco botao_sem_estilo">
           <img src={favorites} width={40} alt="Favorites" />
         </Link>
-        <Link to='/login' className="perfil espaco botao_sem_estilo">
-          <img src={perfil} width={40} alt="Perfil" />
-        </Link>
+        
+        <img src={logado ? logout : perfil} width={40} alt="Perfil" onClick={logoutClick} className="perfil espaco botao_sem_estilo"/>
+        
       </ul>
 
       <div className='menuHamburguer' onClick={() => { setActive(!active) }}>

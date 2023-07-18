@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { auth, db } from '../../config/firebase';
 import { updateDoc,doc, onSnapshot } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
 
 import './card.css';
 
@@ -12,16 +13,61 @@ import coracao_vazio from '../../assets/coracao_vazio.svg';
 
 const Card = (props) =>  {
 
+  const [ logado, setLogado ] = useState(false);
+  const [ starred_games, setStarred_games] = useState();
+
+  async function getUserData() {
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        setCoracaoFull(false);
+        setStarred_games({})
+        const newStars = [...stars];
+
+        for (let i = 0; i < newStars.length; i++) {
+          newStars[i].icon = star_vazia;
+          newStars[i].isFull = false;
+        }
+
+        setLogado(false);
+      } 
+   });
+  }
+
   useEffect(() => {
+    getUserData();
     if(props.fav_games.includes(props.id)) {
-      setCoracaoFull(true)
+      setCoracaoFull(true);
     }
-    const unsub = onSnapshot(doc(db, "users", props.userUid), (doc) => {
-      setFav_games(doc.data().fav_games);
-    });
+
+    setStarred_games(props.starred_games);
+
+    if(props.userUid != null){
+      const index = props.starred_games[props.id.toString()];
+      const newStars = [...stars];
+
+      for (let i = 0; i < newStars.length; i++) {
+        if (i <= index) {
+          newStars[i].icon = star_cheia;
+          newStars[i].isFull = true;
+        } else {
+          newStars[i].icon = star_vazia;
+          newStars[i].isFull = false;
+        }
+      }
+
+      const unsub = onSnapshot(doc(db, "users", props.userUid), (doc) => {
+        setFav_games(doc.data().fav_games);
+        setStarred_games(doc.data().starred_games);
+      });
+
+      setLogado(true);
+    } 
+
+    
   }, []);
 
   async function removeHeart() {
+    
     let fv = fav_games
     for (let i = fv.length - 1; i >= 0; i--) {
       if (fv[i] === props.id) {
@@ -32,7 +78,7 @@ const Card = (props) =>  {
     const userRef = doc(db, "users", props.userUid);
 
     await updateDoc(userRef, {
-        fav_games: fv
+      fav_games: fv
     });
   }
 
@@ -47,8 +93,23 @@ const Card = (props) =>  {
 
   const [isCoracaoFull, setCoracaoFull] = useState(false);
 
-  function handleStarClick(index) {
+  async function handleStarClick(index) {
+
+    if(!logado){
+      alert('Usuario precisa estar logado');
+      return null;
+    }
+
     const newStars = [...stars];
+
+    const st = starred_games
+
+    st[props.id.toString()] = index;
+
+    const userRef = doc(db, "users", props.userUid);
+    await updateDoc(userRef, {
+     starred_games: st
+    });
 
     for (let i = 0; i < newStars.length; i++) {
       if (i <= index) {
@@ -64,6 +125,7 @@ const Card = (props) =>  {
   }
 
   const addHeart = async () => {
+    
     let fv = fav_games
     fv.push(props.id)
     const userRef = doc(db, "users", props.userUid);
@@ -73,6 +135,11 @@ const Card = (props) =>  {
   }
 
   function handleCoracaoClick(){
+
+    if(!logado){
+      alert('Usuario precisa estar logado');
+      return null;
+    }
     setCoracaoFull(!isCoracaoFull);
     if(!props.fav_games.includes(props.id)) {
       addHeart();

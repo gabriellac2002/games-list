@@ -22,6 +22,8 @@ const List = ({games}) =>  {
 
   const navigate = useNavigate();
 
+  const [ logado, setLogado ] = useState()
+
   async function getUserData() {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -29,9 +31,11 @@ const List = ({games}) =>  {
         const docSnap = await getDoc(docRef);
         setUserData(docSnap.data());
         setUserUid(user.uid);
+        setLogado(true);
         setIsloaded(true);
       } else {
-        navigate('/login');
+        setLogado(false);
+        setIsloaded(true);
       }
    });
   }
@@ -40,7 +44,13 @@ const List = ({games}) =>  {
     getUserData()
   }, [])
 
-  const [userData, setUserData] = useState();
+  const [userData, setUserData] = useState({
+    userUid: null,
+    fav_games: [],
+    starred_games: {
+
+    }
+  });
   const [isloaded, setIsloaded ] = useState(false);
   const [userUid, setUserUid] = useState();
 
@@ -78,7 +88,7 @@ const List = ({games}) =>  {
     return Array.isArray(displayedGames) && isloaded
   }
 
-  
+ 
 
   return (
     <div className='body_page'>
@@ -132,7 +142,7 @@ const List = ({games}) =>  {
 
           <div className='container_cards'>
           {allIsLoaded() ? displayedGames.map((game) => (
-            <Card id={game.id} title={game.title} thumbnail={game.thumbnail} short_description={game.short_description} fav_games={userData.fav_games} userUid={userUid}/>
+            <Card id={game.id} title={game.title} thumbnail={game.thumbnail} short_description={game.short_description} fav_games={userData.fav_games} userUid={userUid} starred_games={userData.starred_games}/>
           )) : <ReactLoading type={'spin'} color='#2D6BEA' height={'20%'} width={'20%'} />}
 
           </div>

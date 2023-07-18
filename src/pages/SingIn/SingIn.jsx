@@ -27,7 +27,8 @@ const SingIn = () => {
             await createUserWithEmailAndPassword(auth, email, senha);
             await setDoc(doc(db, "users", auth.currentUser.uid), {
                 email: auth.currentUser.email,
-                fav_games: []
+                fav_games: [],
+                starred_games: {}
             });
         } catch (err){
             const errorMessage = err.message;

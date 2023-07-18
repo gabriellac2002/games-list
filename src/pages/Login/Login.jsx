@@ -18,17 +18,17 @@ const Login = () => {
 
     const navigate = useNavigate();
 
-        useEffect(() => {
-            onAuthStateChanged(auth, (user) => {
-                if (user) {
-                const uid = user.uid;
-                // navigate('/');
-                } else {
-                // User is signed out
-                // ...
-                }
-            });
-        }, []);
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+            const uid = user.uid;
+            navigate('/');
+            } else {
+            // User is signed out
+            // ...
+            }
+        });
+    }, []);
 
     const logar = () => {
         signInWithEmailAndPassword(auth, email, senha)
