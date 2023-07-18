@@ -12,7 +12,7 @@ import lupa from '../../assets/lupa.svg';
 
 const ListFavoritos = ({games}) => {
 
-    const [itensPerPage, setItensPerPage] = useState(9);
+  const [itensPerPage, setItensPerPage] = useState(9);
   const [currentPage,setCurrentPage] = useState(0);
   const [selectedGenre, setSelectedGenre] = useState(null); 
   const [searchQuery, setSearchQuery] = useState('');
@@ -43,9 +43,9 @@ const ListFavoritos = ({games}) => {
   }));
 
     return(
-        <div className="body_list_favorites">
-            <Navbar></Navbar>
-            <div className='list_games'>
+      <div className="body_list_favorites">
+        <Navbar></Navbar>
+        <div className='list_games'>
         <div className='titulo_list_games'>
           <h2>Favoritos</h2>
         </div>
@@ -88,9 +88,9 @@ const ListFavoritos = ({games}) => {
           })}
         </div>
 
-      </div>
-      <Footer></Footer>
         </div>
+        <Footer></Footer>
+      </div>
     );
 }
 
