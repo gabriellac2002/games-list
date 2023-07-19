@@ -28,7 +28,7 @@ const Navbar = () =>  {
     }
     else {
 
-      navigate('/login')
+      navigate('/auth')
 
     }
   }

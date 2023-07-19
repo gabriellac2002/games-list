@@ -1,20 +1,25 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useContext } from "react";
 import { auth } from '../../config/firebase';
 import { signInWithEmailAndPassword, onAuthStateChanged} from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
+import { LoginContext } from "../../pages/Auth/loginContext";
 import './login.css'
 
 import Navbar from "../../components/navbar/navbar";
-import Footer from '../../components/Footer/footer'
+import Footer from '../../components/Footer/footer';
+
+import SingIn from "../SingIn/SingIn";
 
 //assets
 import logo from '../../assets/logo.png';
 
-const Login = () => {
+const Login = ({cadastrar}) => {
 
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
+
+    const { signIn, toggleSignIn } = useContext(LoginContext);
 
     const navigate = useNavigate();
 
@@ -57,6 +62,10 @@ const Login = () => {
 
     }
 
+    const cadastro = () => {
+        toggleSignIn()
+    }
+
 
     return(
         <div className="body_login">
@@ -72,8 +81,8 @@ const Login = () => {
                         <p>Senha:</p>
                         <input className="input_login" type="password" placeholder="********" onChange={(e) => setSenha(e.target.value)}></input>
                         <button className="button_submit" onClick={logar}>Enviar</button>
-                        <div className="cadastro">
-                            <Link to='/cadastro'><p>Cadastre-se</p></Link>
+                        <div className="cadastro" onClick={cadastro}>
+                           <p>Cadastre-se</p>
                         </div>
                     </div>
                 </div>

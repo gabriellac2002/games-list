@@ -67,6 +67,15 @@
     margin-top: 2%;
 }
 
+.coracao:hover {
+    animation: pulse 500ms infinite ease-in-out alternate;
+}
+
+@keyframes pulse {
+    from { transform: scale(0.8); }
+    to { transform: scale(1.2); }
+}
+
 @media only screen and (max-width: 800px){
     .container_card{
         margin-top: 5%;

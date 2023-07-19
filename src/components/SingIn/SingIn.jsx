@@ -1,21 +1,22 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { auth ,db } from '../../config/firebase';
 import { setDoc, doc } from "firebase/firestore"; 
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { LoginContext } from "../../pages/Auth/loginContext";
 
 import { Alert } from "@mui/material";
 
-import Navbar from "../../components/navbar/navbar";
-import Footer from "../../components/Footer/footer";
+import Navbar from "../navbar/navbar";
+import Footer from "../Footer/footer";
 
 import '../Login/login.css';
 
 import logo from '../../assets/logo.png';
 
-const SingIn = () => {
+const SingIn = ({cadastrar}) => {
 
     const navigate = useNavigate();
 
@@ -65,6 +66,12 @@ const SingIn = () => {
         });
     }, []);
 
+    const { signIn, toggleSignIn } = useContext(LoginContext);
+
+    const login = () => {
+        toggleSignIn()
+    }
+
     return(
         <div className="body_cadastro">
             <Navbar></Navbar>
@@ -79,6 +86,7 @@ const SingIn = () => {
                         <p>Senha:</p>
                         <input className="input_login" type="password" placeholder="********" onChange={(e) => setSenha(e.target.value)}></input>
                         <button className="button_submit" onClick={singIn}>Cadastrar</button>
+                        <p onClick={login}>Voltar para o login</p>
                     </div>
                 </div>
             </div>

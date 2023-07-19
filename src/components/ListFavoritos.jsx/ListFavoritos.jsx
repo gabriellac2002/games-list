@@ -101,13 +101,11 @@ const ListFavoritos = ({games}) =>  {
 
   const [itensPerPage, setItensPerPage] = useState(9);
   const [currentPage,setCurrentPage] = useState(0);
-  const [selectedGenre, setSelectedGenre] = useState(null); 
-  const [searchQuery, setSearchQuery] = useState('');
 
-  const pages = Math.ceil(games.length / itensPerPage) ;
+  const pages = Math.ceil(userData.fav_games.length / itensPerPage) ;
   const startIndex = currentPage * itensPerPage;
   const endIndex = startIndex + itensPerPage;
-  const currentItens = games.slice(startIndex,endIndex);
+  const currentItens = userData.fav_games.slice(startIndex,endIndex);
   
 
 
