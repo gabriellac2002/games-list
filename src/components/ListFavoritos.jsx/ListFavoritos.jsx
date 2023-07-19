@@ -139,7 +139,7 @@ const ListFavoritos = ({games}) =>  {
         <div className='list_games'>
           <div className='titulo_list_games'>
             <h2>Favoritos</h2>
-            <button onClick={ordenarCards}><img src={filter}></img></button>
+            <button onClick={ordenarCards} className="filter_card"><img src={filter} className="img_filter"></img></button>
           </div>
 
           <div className='container_cards'>

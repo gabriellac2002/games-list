@@ -48,7 +48,7 @@
  
 
 .espaco{
-    margin-right: 5%;
+    margin-right: 7%;
 }
 
 .botao_sem_estilo{
@@ -58,7 +58,7 @@
 }
 
 a{
-    width: 100%;
+    margin-right: 2%;
     text-decoration: none;
     color: #2B65E6;
 }
@@ -86,10 +86,15 @@ a{
     background-color: #2B65E6;
 }
 
+.nao_logado{
+    display: none;
+}
+
 @media only screen and (max-width: 850px) {
 
     .menuHamburguer{
         display: flex;
+        margin-bottom: 2rem ;
     }
 
     
@@ -103,15 +108,15 @@ a{
 
    
     .lista_links.active {
-        
         position: absolute;
-        top: 7rem;
+        top: 3rem;
         width: 100vw;
         background-color: white;
         display: flex;
         flex-direction: column;
         align-items: center; 
         justify-content: center;
+        margin-bottom: 2rem;
     }
       
     .espaco{

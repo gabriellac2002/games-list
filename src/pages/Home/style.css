@@ -114,6 +114,17 @@
     font-size: 1rem;
 }
 
+.filter_card{
+    border: none;
+    background-color: transparent;
+    margin-left: 1%;
+    cursor: pointer;
+}
+
+.img_filter{
+    width: 30px;
+}
+
 
 @media only screen and (max-width: 850px){
     .image_app{
@@ -176,5 +187,11 @@
     .container_cards{
       display: flex;
       flex-direction: column;
+    }
+}
+
+@media only screen and (max-width: 610px){
+    .filter_card{
+        width: 10px;
     }
 }

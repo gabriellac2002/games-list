@@ -142,7 +142,7 @@ const List = ({games}) =>  {
 
           <div className='container_cards'>
           {allIsLoaded() ? displayedGames.map((game) => (
-            <Card id={game.id} title={game.title} thumbnail={game.thumbnail} short_description={game.short_description} fav_games={userData.fav_games} userUid={userUid} starred_games={userData.starred_games}/>
+            <Card key={game.id} id={game.id} title={game.title} thumbnail={game.thumbnail} short_description={game.short_description} fav_games={userData.fav_games} userUid={userUid} starred_games={userData.starred_games}/>
           )) : <ReactLoading type={'spin'} color='#2D6BEA' height={'20%'} width={'20%'} />}
 
           </div>
