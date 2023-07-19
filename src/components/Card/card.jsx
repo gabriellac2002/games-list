@@ -45,6 +45,8 @@ const Card = (props) =>  {
       const index = props.starred_games[props.id.toString()];
       const newStars = [...stars];
 
+      console.log(index);
+
       for (let i = 0; i < newStars.length; i++) {
         if (i <= index) {
           newStars[i].icon = star_cheia;
@@ -58,6 +60,20 @@ const Card = (props) =>  {
       const unsub = onSnapshot(doc(db, "users", props.userUid), (doc) => {
         setFav_games(doc.data().fav_games);
         setStarred_games(doc.data().starred_games);
+        const index = props.starred_games[props.id.toString()];
+        const newStars = [...stars];
+
+        console.log(index);
+
+        for (let i = 0; i < newStars.length; i++) {
+          if (i <= index) {
+            newStars[i].icon = star_cheia;
+            newStars[i].isFull = true;
+          } else {
+            newStars[i].icon = star_vazia;
+            newStars[i].isFull = false;
+          }
+        }
       });
 
       setLogado(true);
